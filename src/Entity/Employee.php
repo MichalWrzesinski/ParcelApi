@@ -5,11 +5,10 @@ declare(strict_types=1);
 namespace App\Entity;
 
 use ApiPlatform\Metadata\ApiResource;
-use App\Enum\EmployeeJobPositionEnum;
+use App\Enum\EmployeePositionEnum;
 use App\Repository\EmployeeRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping\{
     Column,
     Entity,
@@ -17,6 +16,7 @@ use Doctrine\ORM\Mapping\{
     ManyToOne,
     JoinColumn,
 };
+use Doctrine\DBAL\Types\Types;
 use Symfony\Component\Validator\Constraints\{
     Length,
     NotBlank,
@@ -26,10 +26,10 @@ use Symfony\Component\Validator\Constraints\{
 #[Entity(repositoryClass: EmployeeRepository::class)]
 final class Employee extends User
 {
-    #[Column(type: Types::STRING, length: 30, enumType: EmployeeJobPositionEnum::class)]
+    #[Column(type: Types::STRING, length: 50, enumType: EmployeePositionEnum::class)]
     #[NotBlank]
-    #[Length(min: 5, max: 30)]
-    private EmployeeJobPositionEnum $jobPosition;
+    #[Length(max: 50)]
+    private EmployeePositionEnum $position;
 
     #[ManyToOne(targetEntity: Warehouse::class, inversedBy: 'employees')]
     #[JoinColumn(name: 'warehouse_id', referencedColumnName: 'id', nullable: false)]
@@ -50,14 +50,14 @@ final class Employee extends User
         return ['ROLE_EMPLOYEE'];
     }
 
-    public function getJobPosition(): EmployeeJobPositionEnum
+    public function getPosition(): EmployeePositionEnum
     {
-        return $this->jobPosition;
+        return $this->position;
     }
 
-    public function setJobPosition(EmployeeJobPositionEnum $jobPosition): self
+    public function setPosition(EmployeePositionEnum $position): self
     {
-        $this->jobPosition = $jobPosition;
+        $this->position = $position;
 
         return $this;
     }

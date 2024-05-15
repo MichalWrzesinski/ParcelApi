@@ -8,9 +8,9 @@ use App\Entity\Trait\SoftDeletableTrait;
 use App\Entity\Trait\TimestampableTrait;
 use ApiPlatform\Metadata\ApiResource;
 use App\Enum\ParcelStatusEnum;
-use App\Repository\NotificationRepository;
-use Symfony\Component\Uid\Uuid;
+use App\Repository\ParcelTraceRepository;
 use Doctrine\DBAL\Types\Types;
+use Symfony\Component\Uid\Uuid;
 use Doctrine\ORM\Mapping\{
     Entity,
     HasLifecycleCallbacks,
@@ -26,7 +26,7 @@ use Symfony\Component\Validator\Constraints\{
 };
 
 #[ApiResource]
-#[Entity(repositoryClass: NotificationRepository::class)]
+#[Entity(repositoryClass: ParcelTraceRepository::class)]
 #[Table(name: 'parcel_traces')]
 #[HasLifecycleCallbacks]
 final class ParcelTrace
@@ -40,9 +40,9 @@ final class ParcelTrace
     #[CustomIdGenerator(class: 'doctrine.uuid_generator')]
     private Uuid $id;
 
-    #[Column(type: Types::STRING, length: 20, enumType: ParcelStatusEnum::class)]
+    #[Column(type: Types::STRING, length: 50, enumType: ParcelStatusEnum::class)]
     #[NotBlank]
-    #[Length(max: 20)]
+    #[Length(max: 50)]
     private ?ParcelStatusEnum $type = null;
 
     public function getId(): Uuid

@@ -59,7 +59,7 @@ class Warehouse
 
     #[Column(type: Types::STRING, length: 50)]
     #[NotBlank]
-    #[Length(min: 10, max: 50)]
+    #[Length(min: 5, max: 50)]
     private string $address;
 
     #[OneToMany(targetEntity: Employee::class, mappedBy: 'warehouse')]

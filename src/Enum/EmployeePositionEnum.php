@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Enum;
 
-enum EmployeeJobPositionEnum: string
+enum EmployeePositionEnum: string
 {
     case MANAGER = 'manager';
     case DELIVERER = 'deliverer';

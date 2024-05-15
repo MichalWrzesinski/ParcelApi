@@ -9,8 +9,8 @@ use App\Entity\Trait\TimestampableTrait;
 use ApiPlatform\Metadata\ApiResource;
 use App\Enum\ParcelStatusEnum;
 use App\Repository\ParcelRepository;
-use Symfony\Component\Uid\Uuid;
 use Doctrine\DBAL\Types\Types;
+use Symfony\Component\Uid\Uuid;
 use Symfony\Component\Validator\Constraints\{
     Length,
     NotBlank,
@@ -42,9 +42,9 @@ class Parcel
     #[CustomIdGenerator(class: 'doctrine.uuid_generator')]
     private Uuid $id;
 
-    #[Column(type: Types::STRING, length: 20, enumType: ParcelStatusEnum::class)]
+    #[Column(type: Types::STRING, length: 50, enumType: ParcelStatusEnum::class)]
     #[NotBlank]
-    #[Length(max: 20)]
+    #[Length(max: 50)]
     private ParcelStatusEnum $status;
 
     #[ManyToOne(targetEntity: Client::class)]

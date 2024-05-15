@@ -6,7 +6,7 @@ namespace App\Entity;
 
 use App\Entity\Trait\SoftDeletableTrait;
 use App\Entity\Trait\TimestampableTrait;
-use ApiPlatform\Metadata\ApiResource;;
+use ApiPlatform\Metadata\ApiResource;
 use App\Enum\NotificationStatusEnum;
 use App\Repository\NotificationRepository;
 use Symfony\Component\Uid\Uuid;
@@ -50,9 +50,9 @@ final class Notification
     #[Length(min: 10)]
     private ?string $description = null;
 
-    #[Column(type: Types::STRING, length: 5, enumType: NotificationStatusEnum::class)]
+    #[Column(type: Types::STRING, length: 50, enumType: NotificationStatusEnum::class)]
     #[NotBlank]
-    #[Length( max: 5)]
+    #[Length(max: 50)]
     private NotificationStatusEnum $status;
 
     public function getUser(): User

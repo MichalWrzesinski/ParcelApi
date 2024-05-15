@@ -44,9 +44,9 @@ class DeliveryPoint
     #[CustomIdGenerator(class: 'doctrine.uuid_generator')]
     private Uuid $id;
 
-    #[Column(type: Types::STRING, length: 20, enumType: DeliveryPointTypeEnum::class)]
+    #[Column(type: Types::STRING, length: 50, enumType: DeliveryPointTypeEnum::class)]
     #[NotBlank]
-    #[Length( max: 20)]
+    #[Length(max: 50)]
     private DeliveryPointTypeEnum $type;
 
     #[Column(type: Types::STRING, length: 30)]
