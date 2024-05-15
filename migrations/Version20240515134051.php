@@ -7,10 +7,7 @@ namespace DoctrineMigrations;
 use Doctrine\DBAL\Schema\Schema;
 use Doctrine\Migrations\AbstractMigration;
 
-/**
- * Auto-generated Migration: Please modify to your needs!
- */
-final class Version20240514092105 extends AbstractMigration
+final class Version20240515134051 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -19,21 +16,20 @@ final class Version20240514092105 extends AbstractMigration
 
     public function up(Schema $schema): void
     {
-        // this up() migration is auto-generated, please modify it to your needs
-        $this->addSql('CREATE TABLE delivery_points (id UUID NOT NULL, type VARCHAR(255) NOT NULL, name VARCHAR(30) NOT NULL, post_code VARCHAR(6) NOT NULL, city VARCHAR(30) NOT NULL, address VARCHAR(50) NOT NULL, created_at TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT NULL, updated_at TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT NULL, deleted_at TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT NULL, PRIMARY KEY(id))');
+        $this->addSql('CREATE TABLE delivery_points (id UUID NOT NULL, type VARCHAR(30) NOT NULL, name VARCHAR(30) NOT NULL, post_code VARCHAR(6) NOT NULL, city VARCHAR(30) NOT NULL, address VARCHAR(50) NOT NULL, created_at TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT NULL, updated_at TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT NULL, deleted_at TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT NULL, PRIMARY KEY(id))');
         $this->addSql('COMMENT ON COLUMN delivery_points.id IS \'(DC2Type:uuid)\'');
         $this->addSql('CREATE TABLE employees_delivery_points (delivery_point_id UUID NOT NULL, employee_id UUID NOT NULL, PRIMARY KEY(delivery_point_id, employee_id))');
         $this->addSql('CREATE INDEX IDX_2E20F4A5A1492FCE ON employees_delivery_points (delivery_point_id)');
         $this->addSql('CREATE INDEX IDX_2E20F4A58C03F15C ON employees_delivery_points (employee_id)');
         $this->addSql('COMMENT ON COLUMN employees_delivery_points.delivery_point_id IS \'(DC2Type:uuid)\'');
         $this->addSql('COMMENT ON COLUMN employees_delivery_points.employee_id IS \'(DC2Type:uuid)\'');
-        $this->addSql('CREATE TABLE notifications (id UUID NOT NULL, user_id UUID NOT NULL, description TEXT NOT NULL, created_at TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT NULL, updated_at TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT NULL, deleted_at TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT NULL, PRIMARY KEY(id))');
+        $this->addSql('CREATE TABLE notifications (id UUID NOT NULL, user_id UUID NOT NULL, description TEXT NOT NULL, status VARCHAR(30) NOT NULL, created_at TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT NULL, updated_at TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT NULL, deleted_at TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT NULL, PRIMARY KEY(id))');
         $this->addSql('CREATE INDEX IDX_6000B0D3A76ED395 ON notifications (user_id)');
         $this->addSql('COMMENT ON COLUMN notifications.id IS \'(DC2Type:uuid)\'');
         $this->addSql('COMMENT ON COLUMN notifications.user_id IS \'(DC2Type:uuid)\'');
-        $this->addSql('CREATE TABLE parcel_traces (id UUID NOT NULL, type VARCHAR(255) NOT NULL, created_at TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT NULL, updated_at TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT NULL, deleted_at TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT NULL, PRIMARY KEY(id))');
+        $this->addSql('CREATE TABLE parcel_traces (id UUID NOT NULL, type VARCHAR(30) NOT NULL, created_at TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT NULL, updated_at TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT NULL, deleted_at TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT NULL, PRIMARY KEY(id))');
         $this->addSql('COMMENT ON COLUMN parcel_traces.id IS \'(DC2Type:uuid)\'');
-        $this->addSql('CREATE TABLE parcels (id UUID NOT NULL, sender_id UUID DEFAULT NULL, receiver_id UUID DEFAULT NULL, sending_point_id UUID DEFAULT NULL, receiving_point_id UUID DEFAULT NULL, status VARCHAR(255) NOT NULL, created_at TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT NULL, updated_at TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT NULL, deleted_at TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT NULL, PRIMARY KEY(id))');
+        $this->addSql('CREATE TABLE parcels (id UUID NOT NULL, sender_id UUID DEFAULT NULL, receiver_id UUID DEFAULT NULL, sending_point_id UUID DEFAULT NULL, receiving_point_id UUID DEFAULT NULL, status VARCHAR(30) NOT NULL, created_at TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT NULL, updated_at TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT NULL, deleted_at TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT NULL, PRIMARY KEY(id))');
         $this->addSql('CREATE INDEX IDX_5675350EF624B39D ON parcels (sender_id)');
         $this->addSql('CREATE INDEX IDX_5675350ECD53EDB6 ON parcels (receiver_id)');
         $this->addSql('CREATE INDEX IDX_5675350E6E23B675 ON parcels (sending_point_id)');
@@ -43,7 +39,7 @@ final class Version20240514092105 extends AbstractMigration
         $this->addSql('COMMENT ON COLUMN parcels.receiver_id IS \'(DC2Type:uuid)\'');
         $this->addSql('COMMENT ON COLUMN parcels.sending_point_id IS \'(DC2Type:uuid)\'');
         $this->addSql('COMMENT ON COLUMN parcels.receiving_point_id IS \'(DC2Type:uuid)\'');
-        $this->addSql('CREATE TABLE users (id UUID NOT NULL, warehouse_id UUID NOT NULL, phone VARCHAR(12) NOT NULL, email VARCHAR(100) NOT NULL, password VARCHAR(255) NOT NULL, first_name VARCHAR(50) NOT NULL, last_name VARCHAR(50) NOT NULL, created_at TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT NULL, updated_at TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT NULL, deleted_at TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT NULL, type VARCHAR(255) NOT NULL, job_position VARCHAR(30) DEFAULT NULL, PRIMARY KEY(id))');
+        $this->addSql('CREATE TABLE users (id UUID NOT NULL, warehouse_id UUID DEFAULT NULL, phone VARCHAR(12) NOT NULL, email VARCHAR(100) NOT NULL, password VARCHAR(255) NOT NULL, first_name VARCHAR(50) NOT NULL, last_name VARCHAR(50) NOT NULL, created_at TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT NULL, updated_at TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT NULL, deleted_at TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT NULL, type VARCHAR(255) NOT NULL, position VARCHAR(30) DEFAULT NULL, PRIMARY KEY(id))');
         $this->addSql('CREATE UNIQUE INDEX UNIQ_1483A5E9444F97DD ON users (phone)');
         $this->addSql('CREATE UNIQUE INDEX UNIQ_1483A5E9E7927C74 ON users (email)');
         $this->addSql('CREATE INDEX IDX_1483A5E95080ECDE ON users (warehouse_id)');
@@ -78,8 +74,6 @@ final class Version20240514092105 extends AbstractMigration
 
     public function down(Schema $schema): void
     {
-        // this down() migration is auto-generated, please modify it to your needs
-        $this->addSql('CREATE SCHEMA public');
         $this->addSql('ALTER TABLE employees_delivery_points DROP CONSTRAINT FK_2E20F4A5A1492FCE');
         $this->addSql('ALTER TABLE employees_delivery_points DROP CONSTRAINT FK_2E20F4A58C03F15C');
         $this->addSql('ALTER TABLE notifications DROP CONSTRAINT FK_6000B0D3A76ED395');
