@@ -44,7 +44,7 @@ class Warehouse
 
     #[Column(type: Types::STRING, length: 30)]
     #[NotBlank]
-    #[Length(min: 1, max: 30)]
+    #[Length(max: 30)]
     private string $name;
 
     #[Column(type: Types::STRING, length: 6)]

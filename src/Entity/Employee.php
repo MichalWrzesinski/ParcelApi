@@ -45,6 +45,11 @@ final class Employee extends User
         $this->deliveryPoints = new ArrayCollection();
     }
 
+    public function getRoles(): array
+    {
+        return ['ROLE_EMPLOYEE'];
+    }
+
     public function getJobPosition(): EmployeeJobPositionEnum
     {
         return $this->jobPosition;

@@ -12,4 +12,8 @@ use Doctrine\ORM\Mapping\Entity;
 #[Entity(repositoryClass: ClientRepository::class)]
 final class Client extends User
 {
+    public function getRoles(): array
+    {
+        return ['ROLE_USER'];
+    }
 }

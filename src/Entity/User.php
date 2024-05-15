@@ -28,6 +28,11 @@ use Symfony\Component\Validator\Constraints\{
     Length,
     Email,
 };
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use Symfony\Component\Security\Core\User\{
+    UserInterface,
+    PasswordAuthenticatedUserInterface,
+};
 
 #[Entity]
 #[Table(name: 'users')]
@@ -35,7 +40,7 @@ use Symfony\Component\Validator\Constraints\{
 #[DiscriminatorColumn(name: 'type', type: Types::STRING)]
 #[DiscriminatorMap(value: ['CLIENT' => Client::class, 'EMPLOYEE' => Employee::class])]
 #[HasLifecycleCallbacks]
-class User
+class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     use TimestampableTrait;
     use SoftDeletableTrait;
@@ -81,6 +86,11 @@ class User
     public function getId(): Uuid
     {
         return $this->id;
+    }
+
+    public function getRoles(): array
+    {
+        return [];
     }
 
     public function getPhone(): string
@@ -163,5 +173,14 @@ class User
         $this->notifications->removeElement($notification);
 
         return $this;
+    }
+
+    public function eraseCredentials(): void
+    {
+    }
+
+    public function getUserIdentifier(): string
+    {
+        return $this->getPhone();
     }
 }

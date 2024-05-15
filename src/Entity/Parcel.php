@@ -11,7 +11,10 @@ use App\Enum\ParcelStatusEnum;
 use App\Repository\ParcelRepository;
 use Symfony\Component\Uid\Uuid;
 use Doctrine\DBAL\Types\Types;
-use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Validator\Constraints\{
+    Length,
+    NotBlank,
+};
 use Doctrine\ORM\Mapping\{
     Entity,
     HasLifecycleCallbacks,
@@ -39,8 +42,9 @@ class Parcel
     #[CustomIdGenerator(class: 'doctrine.uuid_generator')]
     private Uuid $id;
 
-    #[Column(type: Types::STRING, enumType: ParcelStatusEnum::class)]
+    #[Column(type: Types::STRING, length: 20, enumType: ParcelStatusEnum::class)]
     #[NotBlank]
+    #[Length(max: 20)]
     private ParcelStatusEnum $status;
 
     #[ManyToOne(targetEntity: Client::class)]
