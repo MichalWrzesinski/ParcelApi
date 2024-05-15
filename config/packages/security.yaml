@@ -2,11 +2,7 @@ security:
     password_hashers:
         Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface: 'auto'
 
-    encoders:
-        App\Entity\User: bcrypt
-
     providers:
-        users_in_memory: { memory: null }
         app_user_provider:
             entity:
                 class: App\Entity\User
@@ -18,15 +14,11 @@ security:
             security: false
         main:
             lazy: true
-            provider: users_in_memory
-        app_user_provider:
-            entity:
-                class: App\Entity\User
-                property: username
+            provider: app_user_provider
         login:
             pattern: ^/api/login
             stateless: true
-            anonymous: true
+            lazy: true
             json_login:
                 check_path: /api/login_check
                 success_handler: lexik_jwt_authentication.handler.authentication_success
@@ -36,9 +28,9 @@ security:
             stateless: true
             jwt: ~
 
-access_control:
-    - { path: ^/api/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-    - { path: ^/api, roles: IS_AUTHENTICATED_FULLY }
+    access_control:
+        - { path: ^/api/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/api, roles: IS_AUTHENTICATED_FULLY }
 
 when@test:
     security:
