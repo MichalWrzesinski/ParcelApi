@@ -25,7 +25,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 
 #[ApiResource]
 #[Entity(repositoryClass: EmployeeRepository::class)]
-final class Employee extends User implements UserInterface
+class Employee extends User implements UserInterface
 {
     #[Column(type: Types::STRING, length: 50, enumType: EmployeePositionEnum::class)]
     #[NotBlank]

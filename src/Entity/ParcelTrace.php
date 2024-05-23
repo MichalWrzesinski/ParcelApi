@@ -29,7 +29,7 @@ use Symfony\Component\Validator\Constraints\{
 #[Entity(repositoryClass: ParcelTraceRepository::class)]
 #[Table(name: 'parcel_traces')]
 #[HasLifecycleCallbacks]
-final class ParcelTrace
+class ParcelTrace
 {
     use TimestampableTrait;
     use SoftDeletableTrait;

@@ -11,7 +11,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 
 #[ApiResource]
 #[Entity(repositoryClass: ClientRepository::class)]
-final class Client extends User implements UserInterface
+class Client extends User implements UserInterface
 {
     public function getRoles(): array
     {
