@@ -31,7 +31,7 @@ use Symfony\Component\Validator\Constraints\{
 #[Entity(repositoryClass: NotificationRepository::class)]
 #[Table(name: 'notifications')]
 #[HasLifecycleCallbacks]
-final class Notification
+class Notification
 {
     use TimestampableTrait;
     use SoftDeletableTrait;

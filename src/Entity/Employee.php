@@ -24,7 +24,7 @@ use Symfony\Component\Validator\Constraints\{
 
 #[ApiResource]
 #[Entity(repositoryClass: EmployeeRepository::class)]
-final class Employee extends User
+class Employee extends User
 {
     #[Column(type: Types::STRING, length: 50, enumType: EmployeePositionEnum::class)]
     #[NotBlank]

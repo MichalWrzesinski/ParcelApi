@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping\Entity;
 
 #[ApiResource]
 #[Entity(repositoryClass: ClientRepository::class)]
-final class Client extends User
+class Client extends User
 {
     public function getRoles(): array
     {
