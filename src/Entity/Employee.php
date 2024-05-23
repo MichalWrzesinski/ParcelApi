@@ -21,10 +21,11 @@ use Symfony\Component\Validator\Constraints\{
     Length,
     NotBlank,
 };
+use Symfony\Component\Security\Core\User\UserInterface;
 
 #[ApiResource]
 #[Entity(repositoryClass: EmployeeRepository::class)]
-class Employee extends User
+class Employee extends User implements UserInterface
 {
     #[Column(type: Types::STRING, length: 50, enumType: EmployeePositionEnum::class)]
     #[NotBlank]

@@ -10,29 +10,9 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Symfony\Component\Uid\Uuid;
 use Doctrine\DBAL\Types\Types;
-use Doctrine\ORM\Mapping\{
-    DiscriminatorColumn,
-    DiscriminatorMap,
-    Entity,
-    HasLifecycleCallbacks,
-    InheritanceType,
-    Table,
-    Column,
-    Id,
-    CustomIdGenerator,
-    GeneratedValue,
-    OneToMany,
-};
-use Symfony\Component\Validator\Constraints\{
-    NotBlank,
-    Length,
-    Email,
-};
-use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
-use Symfony\Component\Security\Core\User\{
-    UserInterface,
-    PasswordAuthenticatedUserInterface,
-};
+use Doctrine\ORM\Mapping\{DiscriminatorColumn, DiscriminatorMap, Entity, HasLifecycleCallbacks, InheritanceType, Table, Column, Id, CustomIdGenerator, GeneratedValue, OneToMany};
+use Symfony\Component\Validator\Constraints\{NotBlank, Length, Email};
+use Symfony\Component\Security\Core\User\{UserInterface, PasswordAuthenticatedUserInterface};
 
 #[Entity]
 #[Table(name: 'users')]
@@ -40,7 +20,7 @@ use Symfony\Component\Security\Core\User\{
 #[DiscriminatorColumn(name: 'type', type: Types::STRING)]
 #[DiscriminatorMap(value: ['CLIENT' => Client::class, 'EMPLOYEE' => Employee::class])]
 #[HasLifecycleCallbacks]
-class User implements UserInterface, PasswordAuthenticatedUserInterface
+abstract class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     use TimestampableTrait;
     use SoftDeletableTrait;
@@ -117,6 +97,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+    public function getUsername(): string
+    {
+        return $this->getEmail();
+    }
+
+    public function getUserIdentifier(): string
+    {
+        return $this->getEmail();
+    }
+
     public function getPassword(): ?string
     {
         return $this->password;
@@ -177,10 +167,5 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function eraseCredentials(): void
     {
-    }
-
-    public function getUserIdentifier(): string
-    {
-        return $this->getPhone();
     }
 }
