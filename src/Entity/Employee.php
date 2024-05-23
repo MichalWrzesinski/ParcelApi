@@ -9,18 +9,9 @@ use App\Enum\EmployeePositionEnum;
 use App\Repository\EmployeeRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use Doctrine\ORM\Mapping\{
-    Column,
-    Entity,
-    ManyToMany,
-    ManyToOne,
-    JoinColumn,
-};
+use Doctrine\ORM\Mapping\{Column, Entity, ManyToMany, ManyToOne, JoinColumn};
 use Doctrine\DBAL\Types\Types;
-use Symfony\Component\Validator\Constraints\{
-    Length,
-    NotBlank,
-};
+use Symfony\Component\Validator\Constraints\{Length, NotBlank};
 use Symfony\Component\Security\Core\User\UserInterface;
 
 #[ApiResource]

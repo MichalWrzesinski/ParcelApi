@@ -11,21 +11,8 @@ use App\Enum\NotificationStatusEnum;
 use App\Repository\NotificationRepository;
 use Symfony\Component\Uid\Uuid;
 use Doctrine\DBAL\Types\Types;
-use Doctrine\ORM\Mapping\{
-    Entity,
-    HasLifecycleCallbacks,
-    Table,
-    Column,
-    Id,
-    CustomIdGenerator,
-    GeneratedValue,
-    ManyToOne,
-    JoinColumn,
-};
-use Symfony\Component\Validator\Constraints\{
-    NotBlank,
-    Length,
-};
+use Doctrine\ORM\Mapping\{Entity, HasLifecycleCallbacks, Table, Column, Id, CustomIdGenerator, GeneratedValue, ManyToOne, JoinColumn};
+use Symfony\Component\Validator\Constraints\{NotBlank, Length};
 
 #[ApiResource]
 #[Entity(repositoryClass: NotificationRepository::class)]

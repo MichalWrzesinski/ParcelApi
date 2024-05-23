@@ -11,21 +11,8 @@ use App\Enum\ParcelStatusEnum;
 use App\Repository\ParcelRepository;
 use Doctrine\DBAL\Types\Types;
 use Symfony\Component\Uid\Uuid;
-use Symfony\Component\Validator\Constraints\{
-    Length,
-    NotBlank,
-};
-use Doctrine\ORM\Mapping\{
-    Entity,
-    HasLifecycleCallbacks,
-    Table,
-    Column,
-    Id,
-    CustomIdGenerator,
-    GeneratedValue,
-    ManyToOne,
-    JoinColumn,
-};
+use Symfony\Component\Validator\Constraints\{Length, NotBlank};
+use Doctrine\ORM\Mapping\{Entity, HasLifecycleCallbacks, Table, Column, Id, CustomIdGenerator, GeneratedValue, ManyToOne, JoinColumn};
 
 #[ApiResource]
 #[Entity(repositoryClass: ParcelRepository::class)]

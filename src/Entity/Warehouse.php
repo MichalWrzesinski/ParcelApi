@@ -12,20 +12,8 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Symfony\Component\Uid\Uuid;
 use Doctrine\DBAL\Types\Types;
-use Doctrine\ORM\Mapping\{
-    Entity,
-    HasLifecycleCallbacks,
-    Table,
-    Column,
-    Id,
-    CustomIdGenerator,
-    GeneratedValue,
-    OneToMany,
-};
-use Symfony\Component\Validator\Constraints\{
-    NotBlank,
-    Length,
-};
+use Doctrine\ORM\Mapping\{Entity, HasLifecycleCallbacks, Table, Column, Id, CustomIdGenerator, GeneratedValue, OneToMany};
+use Symfony\Component\Validator\Constraints\{NotBlank, Length};
 
 #[ApiResource]
 #[Entity(repositoryClass: ParcelRepository::class)]
