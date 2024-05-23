@@ -7,10 +7,11 @@ namespace App\Entity;
 use ApiPlatform\Metadata\ApiResource;
 use App\Repository\ClientRepository;
 use Doctrine\ORM\Mapping\Entity;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 #[ApiResource]
 #[Entity(repositoryClass: ClientRepository::class)]
-final class Client extends User
+final class Client extends User implements UserInterface
 {
     public function getRoles(): array
     {

@@ -21,14 +21,9 @@ final readonly class UserProvider implements UserProviderInterface
 
     public function loadUserByIdentifier(string $identifier): UserInterface
     {
-        $request = $this->requestStack->getCurrentRequest();
-        $userType = $request->headers->get(self::HEADER_USER_TYPE);
-
-        $user = match ($userType) {
-            'client' => $this->clientRepository->find($identifier),
-            'employee' => $this->employeeRepository->find($identifier),
-            default => throw new UnsupportedUserException(sprintf('User type %s is not supported or not provided.', $userType))
-        };
+        $userType = $this->requestStack->getCurrentRequest()->headers->get(self::HEADER_USER_TYPE);
+        $repository = $userType == 'employee' ? $this->employeeRepository : $this->clientRepository;
+        $user = $repository->findOneBy(['email' => $identifier]);
 
         if (!$user) {
             throw new UserNotFoundException(sprintf('User with identifier %s not found.', $identifier));
