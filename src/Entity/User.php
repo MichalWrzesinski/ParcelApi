@@ -117,6 +117,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+    public function getUsername(): string
+    {
+        return $this->getEmail();
+    }
+
+    public function getUserIdentifier(): string
+    {
+        return $this->getEmail();
+    }
+
     public function getPassword(): ?string
     {
         return $this->password;
@@ -177,10 +187,5 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function eraseCredentials(): void
     {
-    }
-
-    public function getUserIdentifier(): string
-    {
-        return $this->getPhone();
     }
 }
